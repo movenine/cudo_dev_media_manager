@@ -1,7 +1,6 @@
 import os
 import sys
-import Icon
-from PySide2 import QtWidgets, QtGui
+from PySide6 import QtWidgets, QtGui
 
 class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
     """
@@ -11,13 +10,9 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         QtWidgets.QSystemTrayIcon.__init__(self, icon, parent)
         self.setToolTip(f'VFX Pipeline Application Build - 3.2.56')
         menu = QtWidgets.QMenu(parent)
-        open_app = menu.addAction("Open Notepad")
-        open_app.triggered.connect(self.open_notepad)
+        open_app = menu.addAction("HAP 코덱변환")
+        open_app.triggered.connect(self.open_hapEncoder)
         open_app.setIcon(QtGui.QIcon("icon.png"))
-
-        open_cal = menu.addAction("Open Calculator")
-        open_cal.triggered.connect(self.open_calc)
-        open_cal.setIcon(QtGui.QIcon("icon.png"))
 
         exit_ = menu.addAction("Exit")
         exit_.triggered.connect(lambda: sys.exit())
@@ -38,20 +33,12 @@ class SystemTrayIcon(QtWidgets.QSystemTrayIcon):
         # if reason == self.Trigger:
         #     self.open_notepad()
 
-    def open_notepad(self):
+    def open_hapEncoder(self):
         """
         this function will open application
         :return:
         """
         os.system('notepad')
-
-    def open_calc(self):
-        """
-        this function will open application
-        :return:
-        """
-        os.system('calc')
-
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
@@ -59,7 +46,7 @@ def main():
     tray_icon = SystemTrayIcon(QtGui.QIcon("icon.png"), w)
     tray_icon.show()
     tray_icon.showMessage('VFX Pipeline', 'Hello "Name of logged in ID')
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':
